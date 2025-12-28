@@ -1,30 +1,40 @@
+// Canvas setup for background animation
 const canvas = document.getElementById("sky");
 const ctx = canvas.getContext("2d", { alpha: true });
 
+// Theme toggle button elements
 const themeBtn = document.getElementById("themeBtn");
 const themeIcon = themeBtn.querySelector(".theme-btn__icon");
 const themeText = themeBtn.querySelector(".theme-btn__text");
 
+// Local storage key for saving theme preference
 const STORAGE_KEY = "cv_mode";
+
+// Respect user preference for reduced motion
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// Canvas and animation state variables
 let W = 0, H = 0, DPR = 1;
 let rafId = null;
 let running = false;
-let t = 0;
 
+// Animation particles
 let stars = [];
 let glowDust = [];
 
+// Utility helpers
 function rand(min, max){ return Math.random() * (max - min) + min; }
 function isNight(){ return document.body.classList.contains("night-mode"); }
 
+// Apply evening/night mode and optionally save preference
 function applyMode(night, save = true){
   document.body.classList.toggle("night-mode", night);
   document.body.classList.toggle("evening-mode", !night);
 
+  // Accessibility state
   themeBtn.setAttribute("aria-pressed", String(night));
 
+  // Update button text and icon
   if (night){
     themeIcon.textContent = "🌇";
     themeText.textContent = "Evening Mode";
@@ -36,13 +46,18 @@ function applyMode(night, save = true){
   if (save) localStorage.setItem(STORAGE_KEY, night ? "night" : "evening");
 }
 
+// Handle theme toggle click
 themeBtn.addEventListener("click", () => {
   applyMode(!isNight(), true);
 });
 
+// Build star particles for night mode
 function buildStars(){
   stars = [];
-  const count = prefersReducedMotion ? 160 : Math.min(850, Math.max(260, Math.floor((W * H) / 9000)));
+  const count = prefersReducedMotion
+    ? 160
+    : Math.min(850, Math.max(260, Math.floor((W * H) / 9000)));
+
   for (let i = 0; i < count; i++){
     stars.push({
       x: rand(0, W),
@@ -56,9 +71,13 @@ function buildStars(){
   }
 }
 
+// Build glowing dust particles for evening mode
 function buildGlowDust(){
   glowDust = [];
-  const count = prefersReducedMotion ? 18 : Math.min(70, Math.max(30, Math.floor((W * H) / 22000)));
+  const count = prefersReducedMotion
+    ? 18
+    : Math.min(70, Math.max(30, Math.floor((W * H) / 22000)));
+
   for (let i = 0; i < count; i++){
     glowDust.push({
       x: rand(0, W),
@@ -72,6 +91,7 @@ function buildGlowDust(){
   }
 }
 
+// Resize canvas and rebuild particles
 function resize(){
   DPR = Math.min(window.devicePixelRatio || 1, 2);
   W = Math.floor(window.innerWidth);
@@ -88,6 +108,7 @@ function resize(){
 }
 window.addEventListener("resize", resize);
 
+// Drawing functions for each mode
 function paintEveningGlow(){
   const cx = W * 0.22;
   const cy = H * 0.62;
@@ -120,7 +141,6 @@ function paintGlowDust(){
     }
 
     ctx.beginPath();
-    //الوير
     ctx.fillStyle = `rgba(255, 255, 255, ${p.a})`;
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fill();
@@ -129,7 +149,6 @@ function paintGlowDust(){
   ctx.restore();
 }
 
-// المود
 function paintNightGlow(){
   const g = ctx.createRadialGradient(W*0.25, H*0.35, 10, W*0.25, H*0.35, Math.max(W,H)*0.7);
   g.addColorStop(0.00, "rgba(127,231,255,0.10)");
@@ -189,10 +208,10 @@ function paintMoon(){
   ctx.globalCompositeOperation = "source-over";
 }
 
-//اللب
+// Main animation loop
 function loop(){
   if (!running) return;
-  t += 1;
+
   ctx.clearRect(0, 0, W, H);
 
   if (isNight()){
@@ -207,6 +226,7 @@ function loop(){
   rafId = requestAnimationFrame(loop);
 }
 
+// Control animation lifecycle
 function start(){
   if (running) return;
   running = true;
@@ -218,14 +238,13 @@ function stop(){
   rafId = null;
 }
 
+// Pause animation when tab is hidden
 document.addEventListener("visibilitychange", () => {
-  if (document.hidden) stop();
-  else start();
+  document.hidden ? stop() : start();
 });
 
+// Initial setup
 resize();
-
 const saved = localStorage.getItem(STORAGE_KEY);
 applyMode(saved === "night", false);
-
 start();
