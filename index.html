@@ -8,18 +8,19 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 
-<body>
-  <canvas id="dawn" aria-hidden="true"></canvas>
+<body class="evening-mode">
+  <canvas id="sky" aria-hidden="true"></canvas>
 
   <div class="page">
     <header class="hero">
       <div class="hero__bg" aria-hidden="true"></div>
 
-      <!--  زر التبديل -->
-      <button id="themeBtn" class="theme-btn" type="button" aria-pressed="false">
-        <span class="theme-btn__icon" aria-hidden="true">🌙</span>
-        <span class="theme-btn__text">Dark Mode</span>
-      </button>
+      <div class="hero__topbar">
+        <button id="themeBtn" class="theme-btn" type="button" aria-pressed="false">
+          <span class="theme-btn__icon" aria-hidden="true">🌙</span>
+          <span class="theme-btn__text">Night Mode</span>
+        </button>
+      </div>
 
       <div class="hero__content">
         <div class="hero__left">
@@ -35,7 +36,7 @@
           <p class="role">Computer Science Student</p>
 
           <div class="meta">
-            <span class="tag">🌅 Sunrise</span>
+            <span class="tag">🌇 Evening</span>
             <span class="tag">🌙 Night</span>
             <span class="tag">📱 Responsive</span>
           </div>
@@ -118,7 +119,7 @@
 
       <footer class="footer">
         <span class="footer__line"></span>
-        <span class="footer__text">Sunrise ⇄ Night ✨</span>
+        <span class="footer__text">Evening ⇄ Night ✨</span>
         <span class="footer__line"></span>
       </footer>
     </main>
