@@ -5,7 +5,7 @@ const themeBtn = document.getElementById("themeBtn");
 const themeIcon = themeBtn.querySelector(".theme-btn__icon");
 const themeText = themeBtn.querySelector(".theme-btn__text");
 
-const STORAGE_KEY = "cv_theme"; // "light" | "dark"
+const STORAGE_KEY = "cv_theme";
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 let W = 0, H = 0, DPR = 1;
@@ -23,7 +23,6 @@ function applyTheme(dark, save = true){
   document.body.classList.toggle("dark-mode", dark);
   themeBtn.setAttribute("aria-pressed", String(dark));
 
-  // Button shows NEXT mode
   if (dark){
     themeIcon.textContent = "☀️";
     themeText.textContent = "Light Mode";
@@ -88,7 +87,6 @@ function resize(){
 
 window.addEventListener("resize", resize);
 
-// ===== Light mode (Sunrise) paint =====
 function paintSunGlow(){
   const cx = W * 0.22;
   const cy = H * 0.62;
@@ -175,13 +173,11 @@ function paintDust(){
   ctx.restore();
 }
 
-// ===== Dark mode (Night) paint =====
 function paintMoon(){
   const cx = W * 0.78;
   const cy = H * 0.22;
   const R = Math.min(W, H) * 0.10;
 
-  // glow
   const g = ctx.createRadialGradient(cx, cy, 10, cx, cy, R * 3.2);
   g.addColorStop(0.00, "rgba(200,240,255,0.18)");
   g.addColorStop(0.25, "rgba(160,220,255,0.10)");
@@ -189,13 +185,11 @@ function paintMoon(){
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, W, H);
 
-  // moon body
   ctx.beginPath();
   ctx.fillStyle = "rgba(245,252,255,0.30)";
   ctx.arc(cx, cy, R, 0, Math.PI * 2);
   ctx.fill();
 
-  // crescent cut
   ctx.globalCompositeOperation = "destination-out";
   ctx.beginPath();
   ctx.arc(cx + R * 0.35, cy - R * 0.05, R * 0.92, 0, Math.PI * 2);
@@ -230,7 +224,6 @@ function paintStars(){
 }
 
 function paintNightGlow(){
-  // subtle nebula tint
   const g = ctx.createRadialGradient(W*0.25, H*0.35, 10, W*0.25, H*0.35, Math.max(W,H)*0.7);
   g.addColorStop(0.00, "rgba(120,220,255,0.10)");
   g.addColorStop(0.35, "rgba(190,140,255,0.06)");
@@ -239,7 +232,6 @@ function paintNightGlow(){
   ctx.fillRect(0, 0, W, H);
 }
 
-// ===== Loop =====
 function loop(){
   if (!running) return;
   t += 1;
@@ -269,16 +261,13 @@ function stop(){
   rafId = null;
 }
 
-// Battery friendly
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) stop();
   else start();
 });
 
-// ===== Init =====
 resize();
 
-// Default = light (Sunrise) unless user saved dark
 const saved = localStorage.getItem(STORAGE_KEY);
 applyTheme(saved === "dark", false);
 
