@@ -23,6 +23,7 @@ function applyTheme(dark, save = true){
   document.body.classList.toggle("dark-mode", dark);
   themeBtn.setAttribute("aria-pressed", String(dark));
 
+  // النص يوضح "شنو راح يصير بعد الضغط"
   if (dark){
     themeIcon.textContent = "☀️";
     themeText.textContent = "Light Mode";
@@ -107,16 +108,12 @@ function paintRays(){
 
   const cx = W * 0.22;
   const cy = H * 0.62;
-
   const rays = 18;
   const baseLen = Math.max(W, H) * 0.55;
 
   ctx.save();
   ctx.translate(cx, cy);
-
-  const drift = Math.sin(t * 0.004) * 0.08;
-  ctx.rotate(drift);
-
+  ctx.rotate(Math.sin(t * 0.004) * 0.08);
   ctx.globalCompositeOperation = "screen";
 
   for (let i = 0; i < rays; i++){
@@ -134,7 +131,6 @@ function paintRays(){
     grad.addColorStop(1.0, "rgba(255, 255, 255, 0.00)");
 
     ctx.fillStyle = grad;
-
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.lineTo(len, 10);
@@ -173,28 +169,13 @@ function paintDust(){
   ctx.restore();
 }
 
-function paintMoon(){
-  const cx = W * 0.78;
-  const cy = H * 0.22;
-  const R = Math.min(W, H) * 0.10;
-
-  const g = ctx.createRadialGradient(cx, cy, 10, cx, cy, R * 3.2);
-  g.addColorStop(0.00, "rgba(200,240,255,0.18)");
-  g.addColorStop(0.25, "rgba(160,220,255,0.10)");
-  g.addColorStop(1.00, "rgba(255,255,255,0.00)");
+function paintNightGlow(){
+  const g = ctx.createRadialGradient(W*0.25, H*0.35, 10, W*0.25, H*0.35, Math.max(W,H)*0.7);
+  g.addColorStop(0.00, "rgba(120,220,255,0.10)");
+  g.addColorStop(0.35, "rgba(190,140,255,0.06)");
+  g.addColorStop(1.00, "rgba(0,0,0,0.00)");
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, W, H);
-
-  ctx.beginPath();
-  ctx.fillStyle = "rgba(245,252,255,0.30)";
-  ctx.arc(cx, cy, R, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.globalCompositeOperation = "destination-out";
-  ctx.beginPath();
-  ctx.arc(cx + R * 0.35, cy - R * 0.05, R * 0.92, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.globalCompositeOperation = "source-over";
 }
 
 function paintStars(){
@@ -223,13 +204,28 @@ function paintStars(){
   ctx.restore();
 }
 
-function paintNightGlow(){
-  const g = ctx.createRadialGradient(W*0.25, H*0.35, 10, W*0.25, H*0.35, Math.max(W,H)*0.7);
-  g.addColorStop(0.00, "rgba(120,220,255,0.10)");
-  g.addColorStop(0.35, "rgba(190,140,255,0.06)");
-  g.addColorStop(1.00, "rgba(0,0,0,0.00)");
+function paintMoon(){
+  const cx = W * 0.78;
+  const cy = H * 0.22;
+  const R = Math.min(W, H) * 0.10;
+
+  const g = ctx.createRadialGradient(cx, cy, 10, cx, cy, R * 3.2);
+  g.addColorStop(0.00, "rgba(200,240,255,0.18)");
+  g.addColorStop(0.25, "rgba(160,220,255,0.10)");
+  g.addColorStop(1.00, "rgba(255,255,255,0.00)");
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, W, H);
+
+  ctx.beginPath();
+  ctx.fillStyle = "rgba(245,252,255,0.30)";
+  ctx.arc(cx, cy, R, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.globalCompositeOperation = "destination-out";
+  ctx.beginPath();
+  ctx.arc(cx + R * 0.35, cy - R * 0.05, R * 0.92, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalCompositeOperation = "source-over";
 }
 
 function loop(){
@@ -267,7 +263,6 @@ document.addEventListener("visibilitychange", () => {
 });
 
 resize();
-
 const saved = localStorage.getItem(STORAGE_KEY);
 applyTheme(saved === "dark", false);
 
