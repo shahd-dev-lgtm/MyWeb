@@ -4,7 +4,6 @@
   --text: #2a1f1a;
   --muted: rgba(42,31,26,.70);
 
-  /* Sunrise */
   --sun1: #ff7a59;
   --sun2: #ffcf6e;
   --sky1: #ffd7c6;
@@ -21,7 +20,7 @@
   --tagStroke: rgba(255, 168, 120, .22);
 }
 
-/* ===== Dark Mode ===== */
+/* ===== دارك مود ===== */
 body.dark-mode{
   --text: rgba(244,248,255,.94);
   --muted: rgba(244,248,255,.70);
@@ -49,7 +48,6 @@ body{
   line-height: 1.75;
   overflow-x: hidden;
 
-  /* Sunrise sky (fallback behind canvas) */
   background:
     radial-gradient(900px 520px at 30% 20%, rgba(255,255,255,.70) 0%, transparent 55%),
     radial-gradient(900px 520px at 75% 25%, rgba(255,255,255,.50) 0%, transparent 60%),
@@ -60,7 +58,6 @@ body{
 }
 
 body.dark-mode{
-  /* Night sky fallback */
   background:
     radial-gradient(900px 520px at 30% 20%, rgba(120, 220, 255, .08) 0%, transparent 55%),
     radial-gradient(900px 520px at 75% 25%, rgba(190, 140, 255, .07) 0%, transparent 60%),
@@ -68,7 +65,7 @@ body.dark-mode{
     linear-gradient(180deg, var(--sky1) 0%, var(--sky2) 78%, #03040b 100%);
 }
 
-/* Canvas layer */
+/*كنافة */
 #dawn{
   position: fixed;
   inset: 0;
@@ -77,16 +74,14 @@ body.dark-mode{
   z-index: -1;
 }
 
-/* Page container */
+/* كونتينر */
 .page{
   width: min(1020px, 92vw);
   margin: 0 auto;
   padding: 18px 0 32px;
 }
 
-/* =====================
-   HERO
-===================== */
+/* هيرو ضفتو هنا */
 .hero{
   position: relative;
   border-radius: calc(var(--radius) + 10px);
@@ -398,7 +393,7 @@ body.dark-mode .panel__icon{
   z-index: 1;
 }
 
-/* Skills badges */
+/* الكلاسار */
 .badges{
   margin-top: 12px;
   display:flex;
@@ -422,7 +417,7 @@ body.dark-mode .badge{
   border-color: rgba(120,220,255,.14);
 }
 
-/* Projects list */
+/*اليستاt */
 .clean-list{
   list-style: none;
   padding: 10px 0 0;
@@ -452,13 +447,12 @@ body.dark-mode .clean-list .dot{
   box-shadow: 0 12px 28px rgba(120,220,255,.18);
 }
 
-/* Contact */
+/* كونتينر٢ */
 .mono{
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
   word-break: break-word;
 }
 
-/* Footer */
 .footer{
   grid-column: 1 / -1;
   display:flex;
@@ -483,7 +477,7 @@ body.dark-mode .footer__line{
 
 .footer__text{ text-align:center; }
 
-/* Responsive */
+/* مستوعي */
 @media (max-width: 900px){
   .hero__content{
     grid-template-columns: 1fr;
