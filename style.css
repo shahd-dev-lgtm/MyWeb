@@ -1,17 +1,10 @@
-/* ===============================
-   Fonts
-================================ */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap');
 
-/* ===============================
-   Theme Tokens
-================================ */
 :root{
   --radius: 18px;
   --radius2: 26px;
   --blur: 16px;
 
-  /* Light (Day / Soft Sky) */
   --bg1: #88d6ff;
   --bg2: #eaf9ff;
 
@@ -21,7 +14,6 @@
   --accent: #b03a6f;
   --accent2: #2bd4ff;
 
-  /* Sea-glass (light) */
   --glass: rgba(255,255,255,.55);
   --glass2: rgba(255,255,255,.28);
   --stroke: rgba(255,255,255,.36);
@@ -32,7 +24,6 @@
 }
 
 body.dark-mode{
-  /* Night (Aurora) */
   --bg1: #02040f;
   --bg2: #071a3b;
 
@@ -42,7 +33,6 @@ body.dark-mode{
   --accent: #f8c8dc;
   --accent2: #2ee9ff;
 
-  /* Sea-glass (dark) */
   --glass: rgba(14, 24, 44, .55);
   --glass2: rgba(14, 24, 44, .22);
   --stroke: rgba(180, 255, 245, .22);
@@ -52,9 +42,6 @@ body.dark-mode{
   --btnText: rgba(245,248,255,.92);
 }
 
-/* ===============================
-   Base
-================================ */
 *{ box-sizing:border-box; }
 html, body{ height:100%; }
 
@@ -65,7 +52,6 @@ body{
   line-height:1.7;
   overflow-x:hidden;
 
-  /* Background (fallback behind canvas) */
   background:
     radial-gradient(1200px 800px at 20% 10%, rgba(255,255,255,.55) 0%, transparent 55%),
     radial-gradient(1200px 800px at 80% 20%, rgba(255,255,255,.35) 0%, transparent 60%),
@@ -74,7 +60,7 @@ body{
   transition: background 600ms ease, color 300ms ease;
 }
 
-/* Canvas */
+/* كنت */
 #sky{
   position: fixed;
   inset: 0;
@@ -83,7 +69,7 @@ body{
   z-index: -3;
 }
 
-/* Overlay: clouds at day / nebula tint at night */
+/* عع */
 .sky-overlay{
   position: fixed;
   inset: 0;
@@ -119,15 +105,12 @@ body.dark-mode .sky-overlay{
   100%{ transform: translate3d(0,0,0) scale(1); }
 }
 
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce){
   .sky-overlay{ animation: none !important; }
   *{ transition: none !important; scroll-behavior: auto !important; }
 }
 
-/* ===============================
-   Layout
-================================ */
+/* ااااا */
 .container{
   width: min(1000px, 92vw);
   margin: 0 auto;
@@ -141,9 +124,7 @@ body.dark-mode .sky-overlay{
   gap: 14px;
 }
 
-/* ===============================
-   Sea Glass Card
-================================ */
+/* Sea-زجاجس */
 .sea-glass{
   position: relative;
   background: linear-gradient(135deg, var(--glass), var(--glass2));
@@ -156,7 +137,6 @@ body.dark-mode .sky-overlay{
 }
 
 .sea-glass::before{
-  /* watery highlight */
   content:"";
   position:absolute;
   inset:-2px;
@@ -170,7 +150,6 @@ body.dark-mode .sky-overlay{
 }
 
 .sea-glass::after{
-  /* soft bubbles */
   content:"";
   position:absolute;
   inset:0;
@@ -182,9 +161,7 @@ body.dark-mode .sky-overlay{
   pointer-events:none;
 }
 
-/* ===============================
-   Hero (Header)
-================================ */
+/* هيرو */
 .hero{
   border-radius: var(--radius2);
   padding: clamp(18px, 3.8vw, 28px);
@@ -193,7 +170,7 @@ body.dark-mode .sky-overlay{
 
 .hero__inner{
   display:flex;
-  gap: 14px;
+  gap: 16px;
   align-items:center;
   justify-content:center;
   flex-wrap: wrap;
@@ -213,42 +190,6 @@ body.dark-mode .sky-overlay{
   font-weight: 600;
 }
 
-/* Decorative avatar bubble */
-.avatar-wrap{
-  width: 84px;
-  height: 84px;
-  position: relative;
-  flex: 0 0 auto;
-}
-
-.avatar-ring{
-  position:absolute;
-  inset: 6px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.28);
-  box-shadow: 0 16px 40px rgba(0,0,0,.18);
-  background:
-    radial-gradient(circle at 30% 30%, rgba(46,233,255,.35), transparent 55%),
-    radial-gradient(circle at 70% 70%, rgba(248,200,220,.22), transparent 55%);
-}
-
-.avatar-bubble{
-  position:absolute;
-  inset: -6px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 55%),
-    radial-gradient(circle at 70% 70%, rgba(255,255,255,.10), transparent 60%);
-  filter: blur(2px);
-  animation: bubble 3.2s ease-in-out infinite;
-  opacity: .9;
-}
-
-@keyframes bubble{
-  0%,100%{ transform: scale(1); opacity: .85; }
-  50%{ transform: scale(1.07); opacity: 1; }
-}
-
 .hero__shine{
   position:absolute;
   inset:-2px;
@@ -260,9 +201,76 @@ body.dark-mode .sky-overlay{
   mix-blend-mode: overlay;
 }
 
-/* ===============================
-   Button
-================================ */
+.avatar-wrap{
+  width: 110px;
+  height: 110px;
+  position: relative;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  overflow: visible;
+}
+
+.avatar{
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  display:block;
+  position: relative;
+  z-index: 3;
+
+  border: 2px solid rgba(255,255,255,.28);
+  box-shadow: 0 18px 55px rgba(0,0,0,.28);
+  transform: translateZ(0);
+}
+
+/* صورةe */
+.avatar-glow{
+  position:absolute;
+  inset:-14px;
+  border-radius: 50%;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(46,233,255,.42), transparent 55%),
+    radial-gradient(circle at 70% 70%, rgba(248,200,220,.26), transparent 55%),
+    radial-gradient(circle at 50% 90%, rgba(138,92,255,.18), transparent 60%);
+  filter: blur(8px);
+  opacity: .95;
+  animation: pulse 2.9s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  0%,100%{ transform: scale(1); opacity: .85; }
+  50%{ transform: scale(1.08); opacity: 1; }
+}
+
+/* الزجاج */
+.avatar-ring{
+  position:absolute;
+  inset:-6px;
+  border-radius: 50%;
+  z-index: 2;
+  background: linear-gradient(135deg, rgba(255,255,255,.20), rgba(255,255,255,.06));
+  border: 1px solid rgba(180,255,245,.22);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.avatar-shine{
+  position:absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: 4;
+  pointer-events:none;
+  background:
+    radial-gradient(60px 38px at 30% 25%, rgba(255,255,255,.45), transparent 70%),
+    radial-gradient(70px 44px at 70% 10%, rgba(255,255,255,.22), transparent 70%);
+  mix-blend-mode: screen;
+  opacity: .9;
+}
+
+/* الازرار */
 .btn{
   display:inline-flex;
   align-items:center;
@@ -293,9 +301,7 @@ body.dark-mode .sky-overlay{
   background: rgba(255,255,255,.10);
 }
 
-/* ===============================
-   Sections (Cards)
-================================ */
+/* كرت الكتابات */
 .card{
   padding: 20px;
   grid-column: span 6;
@@ -317,16 +323,12 @@ body.dark-mode .sky-overlay{
   letter-spacing: .2px;
 }
 
-body.dark-mode .card h2{
-  color: var(--accent);
-}
-
 .card p{
   margin: 0;
   color: var(--muted);
 }
 
-/* Skills */
+/* الاستايلات */
 .chips{
   list-style:none;
   padding:0;
@@ -347,7 +349,7 @@ body.dark-mode .card h2{
   text-align:center;
 }
 
-/* Projects list */
+/* البروجيكت */
 .list{
   padding-left: 18px;
   margin: 0;
@@ -358,13 +360,11 @@ body.dark-mode .card h2{
   color: var(--muted);
 }
 
-/* Contact */
 .mono{
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   word-break: break-word;
 }
 
-/* Footer */
 .footer{
   margin-top: 18px;
   display:flex;
@@ -384,7 +384,6 @@ body.dark-mode .card h2{
   box-shadow: 0 12px 26px rgba(0,0,0,.18);
 }
 
-/* Responsive */
 @media (max-width: 920px){
   .card{ grid-column: span 12; }
 }
@@ -393,4 +392,5 @@ body.dark-mode .card h2{
   .container{ width: 94vw; }
   .card{ padding: 18px; }
   .chips li{ min-width: 84px; }
+  .avatar-wrap, .avatar{ width: 96px; height: 96px; }
 }
