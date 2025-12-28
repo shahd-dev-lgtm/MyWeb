@@ -76,6 +76,9 @@ body{
   z-index: -1;
 }
 
+/* =====================
+   Layout Container
+===================== */
 .page{
   width: min(1020px, 92vw);
   margin: 0 auto;
