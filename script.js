@@ -5,7 +5,7 @@ const themeBtn = document.getElementById("themeBtn");
 const themeIcon = themeBtn.querySelector(".theme-btn__icon");
 const themeText = themeBtn.querySelector(".theme-btn__text");
 
-const STORAGE_KEY = "cv_mode"; // "evening" | "night"
+const STORAGE_KEY = "cv_mode";
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 let W = 0, H = 0, DPR = 1;
@@ -19,14 +19,12 @@ let glowDust = [];
 function rand(min, max){ return Math.random() * (max - min) + min; }
 function isNight(){ return document.body.classList.contains("night-mode"); }
 
-// ✅ تطبيق الوضع + تحديث الزر
 function applyMode(night, save = true){
   document.body.classList.toggle("night-mode", night);
   document.body.classList.toggle("evening-mode", !night);
 
   themeBtn.setAttribute("aria-pressed", String(night));
 
-  // الزر يوضح "الوضع القادم"
   if (night){
     themeIcon.textContent = "🌇";
     themeText.textContent = "Evening Mode";
@@ -42,7 +40,6 @@ themeBtn.addEventListener("click", () => {
   applyMode(!isNight(), true);
 });
 
-// ===== build particles =====
 function buildStars(){
   stars = [];
   const count = prefersReducedMotion ? 160 : Math.min(850, Math.max(260, Math.floor((W * H) / 9000)));
@@ -91,7 +88,6 @@ function resize(){
 }
 window.addEventListener("resize", resize);
 
-// ===== Evening paint (sunset glow + floating dust) =====
 function paintEveningGlow(){
   const cx = W * 0.22;
   const cy = H * 0.62;
@@ -124,7 +120,7 @@ function paintGlowDust(){
     }
 
     ctx.beginPath();
-    // warm dust
+    //الوير
     ctx.fillStyle = `rgba(255, 255, 255, ${p.a})`;
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fill();
@@ -133,7 +129,7 @@ function paintGlowDust(){
   ctx.restore();
 }
 
-// ===== Night paint (stars + moon) =====
+// المود
 function paintNightGlow(){
   const g = ctx.createRadialGradient(W*0.25, H*0.35, 10, W*0.25, H*0.35, Math.max(W,H)*0.7);
   g.addColorStop(0.00, "rgba(127,231,255,0.10)");
@@ -193,7 +189,7 @@ function paintMoon(){
   ctx.globalCompositeOperation = "source-over";
 }
 
-// ===== Loop =====
+//اللب
 function loop(){
   if (!running) return;
   t += 1;
@@ -227,7 +223,6 @@ document.addEventListener("visibilitychange", () => {
   else start();
 });
 
-// ===== Init =====
 resize();
 
 const saved = localStorage.getItem(STORAGE_KEY);
